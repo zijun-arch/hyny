@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恒益农业 - 高原特色农产品</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  :root {
+    --green: #2d5016;
+    --green-light: #4a7c2e;
+    --gold: #c9a84c;
+    --gold-light: #e8d48b;
+    --cream: #faf6ed;
+    --dark: #1a1a1a;
+    --text: #333;
+    --text-light: #666;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    color: var(--text); background: #fff; line-height: 1.6;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Noto Serif SC', 'SimSun', serif; }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; width: 100%;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+    z-index: 100; border-bottom: 1px solid #eee;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo { font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 700; color: var(--green); text-decoration: none; }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .nav-links a { text-decoration: none; color: var(--text); font-size: 13px; font-weight: 500; transition: .2s; position: relative; cursor: pointer; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--green); transition: .3s; }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a:hover { color: var(--green); }
+  .back-link { color: var(--green); text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 24px; font-weight: 500; cursor: pointer; }
+  .back-link:hover { color: var(--green-light); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #1a2a0e, #2d5016, #3a6b1e, #2d5016);
+    color: #fff; text-align: center;
+    padding: 100px 24px 60px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.05) 0%, transparent 50%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 800px; }
+  .hero-subtitle { font-size: 14px; letter-spacing: 6px; color: var(--gold-light); margin-bottom: 16px; opacity: .8; }
+  .hero h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+  .hero h1 span { color: var(--gold); }
+  .hero-desc { font-size: clamp(16px, 2vw, 20px); opacity: .85; margin-bottom: 40px; font-weight: 300; line-height: 1.8; }
+  .hero-stats { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+  .hero-stat { text-align: center; }
+  .hero-stat .num { font-size: 32px; font-weight: 700; color: var(--gold); font-family: 'Noto Serif SC', serif; }
+  .hero-stat .label { font-size: 13px; opacity: .7; margin-top: 4px; }
+  .scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite; color: var(--gold-light); font-size: 24px; opacity: .6; }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(10px)} }
+
+  /* Sections */
+  section { padding: 80px 24px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-title { text-align: center; margin-bottom: 16px; }
+  .section-title h2 { font-size: clamp(28px, 4vw, 36px); font-weight: 700; color: var(--dark); }
+  .section-title .sub { color: var(--text-light); font-size: 15px; margin-top: 8px; max-width: 600px; margin: 8px auto 0; }
+  .section-divider { width: 60px; height: 3px; background: var(--gold); margin: 16px auto 40px; }
+
+  .about { background: var(--cream); }
+  .about-text { font-size: 16px; line-height: 2; max-width: 800px; margin: 0 auto 32px; text-align: center; }
+  .about-text p { margin-bottom: 16px; }
+  .about-vision { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .vision-card { background: #fff; border-radius: 12px; padding: 24px 16px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.04); transition: .3s; }
+  .vision-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .vision-card .icon { font-size: 36px; margin-bottom: 8px; }
+  .vision-card h3 { font-size: 16px; color: var(--green); margin-bottom: 4px; }
+  .vision-card p { font-size: 13px; color: var(--text-light); line-height: 1.5; }
+
+  /* Brand Sections */
+  .brand-section { padding: 60px 0; border-bottom: 1px solid #f0f0f0; }
+  .brand-section:last-child { border-bottom: none; display: none; }
+  .brand-header { text-align: center; margin-bottom: 32px; }
+  .brand-header .brand-name { font-size: 28px; font-weight: 700; color: var(--green); }
+  .brand-header .brand-tagline { font-size: 14px; color: var(--text-light); margin-top: 4px; }
+  .product-subtitle { font-size: 18px; font-weight: 600; color: var(--green); margin: 24px 0 12px; padding-bottom: 8px; border-bottom: 2px solid var(--gold-light); }
+
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+  .product-card {
+    background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #eee;
+    transition: .3s; position: relative; cursor: pointer;
+  }
+  .product-card:hover { border-color: var(--gold); box-shadow: 0 8px 24px rgba(201,168,76,0.12); transform: translateY(-3px); }
+  .product-card:active { transform: translateY(-1px); }
+  .product-card .badge { position: absolute; top: 12px; right: 12px; background: var(--gold); color: #fff; font-size: 11px; padding: 2px 10px; border-radius: 20px; font-weight: 500; }
+  .product-card h3 { font-size: 16px; margin-bottom: 4px; color: var(--dark); }
+  .product-card .spec { font-size: 13px; color: var(--text-light); margin-bottom: 6px; }
+  .product-card .price { font-size: 20px; font-weight: 700; color: var(--green); }
+  .product-card .price small { font-size: 13px; font-weight: 400; color: var(--text-light); }
+  .product-card .usage { font-size: 13px; color: var(--text-light); margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0f0f0; line-height: 1.5; }
+  .view-detail {
+    display: inline-block; margin-top: 10px; font-size: 12px; color: var(--green);
+    font-weight: 500; opacity: 0; transition: opacity .25s;
+  }
+  .product-card:hover .view-detail { opacity: 1; }
+
+  /* Product Detail Page */
+  #product-detail { display: none; }
+  #product-detail.active { display: block; }
+  #product-list { display: block; }
+  #product-list.hidden { display: none; }
+
+  .detail-wrapper { max-width: 800px; margin: 0 auto; padding: 100px 24px 60px; }
+  .detail-card {
+    background: #fff; border-radius: 20px; padding: 40px;
+    border: 1px solid #eee; box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  }
+  .detail-card .brand-icon { font-size: 48px; margin-bottom: 8px; }
+  .detail-card h1 { font-size: 28px; color: var(--dark); margin-bottom: 4px; }
+  .detail-card .brand-name-link { font-size: 14px; color: var(--green); cursor: pointer; display: inline-block; margin-bottom: 16px; }
+  .detail-card .brand-name-link:hover { text-decoration: underline; }
+  .detail-info { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; padding: 20px; background: var(--cream); border-radius: 12px; }
+  .detail-info .item { text-align: center; }
+  .detail-info .item .label { font-size: 12px; color: var(--text-light); margin-bottom: 2px; }
+  .detail-info .item .value { font-size: 18px; font-weight: 600; color: var(--green); }
+  .detail-desc { font-size: 16px; line-height: 2; margin-bottom: 24px; color: var(--text); }
+  .detail-section { margin-bottom: 20px; }
+  .detail-section h3 { font-size: 15px; color: var(--green); margin-bottom: 8px; border-left: 3px solid var(--gold); padding-left: 12px; }
+  .detail-section p { font-size: 14px; line-height: 1.8; color: var(--text-light); }
+
+  /* Footer */
+  footer { background: var(--dark); color: #aaa; padding: 48px 24px 24px; text-align: center; }
+  footer .logo { color: #fff; margin-bottom: 16px; display: block; font-size: 22px; }
+  footer .footer-info { font-size: 14px; line-height: 2; margin-bottom: 24px; }
+  footer .copyright { font-size: 13px; opacity: .6; }
+
+  @media (max-width: 768px) {
+    .nav-links { gap: 12px; }
+    .nav-links a { font-size: 12px; }
+    .about-vision { grid-template-columns: repeat(2, 1fr); }
+    .detail-info { grid-template-columns: 1fr 1fr; }
+    .detail-card { padding: 24px; }
+  }
+  @media (max-width: 480px) {
+    .about-vision { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr; }
+    .detail-info { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo" onclick="showHome();return false;">恒益<span>农业</span></a>
+    <div class="nav-links">
+      <a onclick="showHome()">首页</a>
+      <a onclick="scrollToSection('about')">企业介绍</a>
+      <a onclick="scrollToSection('beef')">岭牛记</a>
+      <a onclick="scrollToSection('salmon')">高原鲲</a>
+      <a onclick="scrollToSection('huangjing')">本草源</a>
+      <a onclick="scrollToSection('meiqingxu')">玫卿序</a>
+      <a onclick="scrollToSection('lusifu')">露丝福</a>
+      <a onclick="scrollToSection('shipu')">恒益甄选</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== 首页 ===== -->
+<div id="product-list">
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-subtitle">恒益农业 · 高原特色农产品</div>
+    <h1>一头牛 · 一朵花<br>一棵草 · 一条鱼</h1>
+    <p class="hero-desc">扎根云南高原，打造完整的生态有机循环产业链</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">6大</div><div class="label">产品系列</div></div>
+      <div class="hero-stat"><div class="num">40+</div><div class="label">优质产品</div></div>
+      <div class="hero-stat"><div class="num">100%</div><div class="label">高原生态</div></div>
+      <div class="hero-stat"><div class="num">全程</div><div class="label">可追溯</div></div>
+    </div>
+  </div>
+  <div class="scroll-indicator">⌄</div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="section-title">
+      <h2>企业介绍</h2>
+      <p class="sub">恒益集团 · 助力乡村振兴 · 推动三产深度融合</p>
+    </div>
+    <div class="section-divider"></div>
+    <div class="about-text">
+      <p>恒益集团结合自身优势、积极响应国家乡村振兴战略，以云岭牛、大马士革玫瑰、中药材、三文鱼、冷链物流产业快速发展，推进"一二三产"深度融合，推动乡村全面振兴。</p>
+      <p>致力于形成完整的生态有机循环产业链，为高质量发展和科技兴边富民提供有力支撑，实现共同富裕。</p>
+    </div>
+    <div class="about-vision">
+      <div class="vision-card">
+        <div class="icon">🐂</div>
+        <h3>一头牛</h3>
+        <p>打造中国高端肉牛新品牌<br>全程可追溯</p>
+      </div>
+      <div class="vision-card">
+        <div class="icon">🌹</div>
+        <h3>一朵花</h3>
+        <p>亚洲最大大马士革三号<br>原材料供应基地</p>
+      </div>
+      <div class="vision-card">
+        <div class="icon">🌿</div>
+        <h3>一棵草</h3>
+        <p>打造世界级健康茶饮<br>为健康而生</p>
+      </div>
+      <div class="vision-card">
+        <div class="icon">🐟</div>
+        <h3>一条鱼</h3>
+        <p>中国最大三文鱼种业<br>+ 产业链服务商</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 产品中心（由JS动态渲染） ===== -->
+<section id="products">
+  <div class="section-inner" id="product-container">
+    <!-- JS will render here -->
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="logo" style="color:var(--gold);">恒益<span style="color:#fff;">农业</span></div>
+  <div class="footer-info">
+    云南恒益农业 · 高原特色农产品<br>
+    专注云岭牛 · 大马士革玫瑰 · 中药材 · 三文鱼 · 冷链物流
+  </div>
+  <div class="copyright">© 2026 恒益农业 · All Rights Reserved</div>
+</footer>
+
+</div><!-- /product-list -->
+
+<!-- ===== 产品详情页 ===== -->
+<div id="product-detail">
+  <div class="detail-wrapper">
+    <a class="back-link" onclick="showHome()">← 返回产品列表</a>
+    <div class="detail-card" id="detail-content">
+      <!-- JS renders here -->
+    </div>
+  </div>
+</div>
+
+<script>
+let productsData = null;
+let currentBrandId = null;
+
+// Load product data
+fetch('products.json')
+  .then(r => r.json())
+  .then(data => {
+    productsData = data;
+    renderProducts();
+  })
+  .catch(() => {
+    // Fallback: inline data if fetch fails
+    document.getElementById('product-container').innerHTML = '<p style="text-align:center;color:#999;">加载产品数据中...</p>';
+  });
+
+function renderProducts() {
+  const container = document.getElementById('product-container');
+  let html = '';
+
+  productsData.brands.forEach(brand => {
+    html += `<div class="brand-section" id="${brand.id}">`;
+    html += `<div class="brand-header"><h3 class="brand-name">${brand.icon} ${brand.name}</h3><p class="brand-tagline">${brand.tagline}</p></div>`;
+
+    brand.categories.forEach(cat => {
+      if (cat.name) html += `<h4 class="product-subtitle">${cat.name}</h4>`;
+      html += `<div class="products-grid">`;
+      cat.products.forEach(p => {
+        const badgeHtml = p.badge ? `<span class="badge">${p.badge}</span>` : '';
+        html += `<div class="product-card" onclick="showProduct('${brand.id}','${p.id}')">
+          ${badgeHtml}
+          <h3>${p.name}</h3>
+          ${p.spec ? `<p class="spec">${p.spec}</p>` : ''}
+          <p class="price">${p.price}</p>
+          ${p.usage ? `<p class="usage">${p.usage}</p>` : ''}
+          <span class="view-detail">查看详情 →</span>
+        </div>`;
+      });
+      html += `</div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function showProduct(brandId, productId) {
+  const brand = productsData.brands.find(b => b.id === brandId);
+  if (!brand) return;
+  let found = null;
+  let catName = '';
+  for (const cat of brand.categories) {
+    const p = cat.products.find(pr => pr.id === productId);
+    if (p) { found = p; catName = cat.name; break; }
+  }
+  if (!found) return;
+
+  currentBrandId = brandId;
+
+  document.getElementById('product-list').classList.add('hidden');
+  document.getElementById('product-detail').classList.add('active');
+  window.scrollTo(0, 0);
+
+  const detail = document.getElementById('detail-content');
+  detail.innerHTML = `
+    <div class="brand-icon">${brand.icon}</div>
+    <h1>${found.name}</h1>
+    <span class="brand-name-link" onclick="showBrandSection('${brandId}')">${brand.name} →</span>
+    ${found.badge ? `<span style="background:var(--gold);color:#fff;font-size:12px;padding:3px 12px;border-radius:20px;display:inline-block;margin:8px 0;">${found.badge}</span>` : ''}
+    <div class="detail-info">
+      <div class="item"><div class="label">价格</div><div class="value">${found.price}</div></div>
+      ${found.spec ? `<div class="item"><div class="label">规格</div><div class="value">${found.spec}</div></div>` : ''}
+      <div class="item"><div class="label">保质期</div><div class="value">${found.expiry || '——'}</div></div>
+      <div class="item"><div class="label">所属系列</div><div class="value">${catName}</div></div>
+    </div>
+    <div class="detail-section">
+      <h3>产品简介</h3>
+      <p>${found.desc || '来自恒益农业的优质产品。'}</p>
+    </div>
+    <div class="detail-section">
+      <h3>食用/使用方法</h3>
+      <p>${found.usage || '——'}</p>
+    </div>
+    ${found.category ? '' : ''}
+  `;
+}
+
+function showHome() {
+  document.getElementById('product-detail').classList.remove('active');
+  document.getElementById('product-list').classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+
+function showBrandSection(brandId) {
+  showHome();
+  setTimeout(() => scrollToSection(brandId), 100);
+}
+
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+
+</body>
+</html>
